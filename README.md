@@ -64,6 +64,23 @@ Elle tetiklemek için: GitHub → Actions → paper-trading → Run workflow.
 .venv/bin/python dashboard.py               # yerel panel: http://localhost:8742
 ```
 
+## Günlük rapor + telefon bildirimi (report.py)
+
+Her döngüde `report.py` okunabilir bir özet üretip `paper/report.txt`'e yazar
+(bakiye, günlük/haftalık getiri, açık pozisyonlar, son 24s işlemler). Bu dosya
+commit'lenir; sıfır kurulumla GitHub'dan ve telefondan okunabilir.
+
+**Gerçek push bildirimi (opsiyonel, ücretsiz, hesapsız — ntfy.sh):**
+1. Telefona **ntfy** uygulamasını kur (App Store / Play Store).
+2. Uygulamada tahmin edilmesi zor bir konu (topic) adına abone ol,
+   örn. `nirengi-bot-7h3k9x`.
+3. GitHub → repo → Settings → Secrets and variables → Actions → New secret:
+   isim `NTFY_TOPIC`, değer o konu adı (`nirengi-bot-7h3k9x`).
+
+Artık sabah (07:xx TR) ve akşam (19:xx TR) döngülerinde telefonuna push düşer.
+Konu adı gizli kaldığı sürece sadece sen görürsün. Yerelde denemek için:
+`NTFY_TOPIC=... .venv/bin/python report.py --force`.
+
 ## iPhone uygulaması (ios/BotPanel)
 
 SwiftUI izleme uygulaması: sermaye eğrisi (Swift Charts), açık pozisyonlar,
@@ -93,7 +110,7 @@ değiştirilebilir.
 - [x] Paper trading (sanal para, gerçek fiyat) + yerel panel
 - [ ] Hisse mean reversion araştırması (QQQ zarar ediyor) ya da hisseleri şimdilik çıkar
 - [ ] Walk-forward doğrulama (tek train/test yerine kayan pencereler)
-- [ ] Günlük rapor: sabah piyasa özeti + akşam bot performansı bildirimi
+- [x] Günlük rapor: sabah/akşam bot performansı bildirimi (report.py + ntfy)
 - [ ] Canlı (ancak paper'da en az 1-2 ay tutarlı sonuçtan sonra, küçük sermayeyle)
 
 ## Uyarı
