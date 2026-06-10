@@ -27,6 +27,10 @@ from botlib.risk import RiskConfig, RiskManager
 
 INITIAL = 10_000.0
 
+# Taranacak coinler. Likit, yuksek hacimli major'lar — ilk arguman virgullu
+# liste verilirse onu kullanir: .venv/bin/python research.py BTCUSDT,SOLUSDT 4h 8h
+DEFAULT_SYMBOLS = ("BTCUSDT", "ETHUSDT", "SOLUSDT", "BNBUSDT", "XRPUSDT", "ADAUSDT")
+
 
 def quick_metrics(equity: pd.Series, trades: pd.DataFrame) -> dict:
     ret = equity.iloc[-1] / INITIAL - 1
@@ -48,11 +52,18 @@ def run_variant(symbol: str, df_prepared: pd.DataFrame, strategy: str,
 
 
 def main():
-    timeframes = sys.argv[1:] or ["1h", "4h"]
-    print(f"Veri cekiliyor... (zaman dilimleri: {', '.join(timeframes)})")
+    args = sys.argv[1:]
+    # ilk arguman virgul iceriyorsa coin listesi, kalani zaman dilimleri
+    if args and "," in args[0]:
+        symbols = tuple(args[0].split(","))
+        args = args[1:]
+    else:
+        symbols = DEFAULT_SYMBOLS
+    timeframes = args or ["4h", "8h"]
+    print(f"Veri cekiliyor... (coinler: {', '.join(symbols)} | zaman dilimleri: {', '.join(timeframes)})")
     raw = {
         (sym, tf): data.fetch_binance(sym, tf, days=730)
-        for sym in ("BTCUSDT", "ETHUSDT") for tf in timeframes
+        for sym in symbols for tf in timeframes
     }
 
     ref = raw[("BTCUSDT", timeframes[0])]
@@ -62,7 +73,7 @@ def main():
     print(f"TRAIN: {t0.date()} -> {t1.date()}   TEST: {t1.date()} -> {t2.date()}\n")
 
     variants = []
-    for sym in ("BTCUSDT", "ETHUSDT"):
+    for sym in symbols:
         for tf in timeframes:
             for entry_n in (24, 48, 96):
                 for short in (True, False):
@@ -118,7 +129,30 @@ def main():
         if tf == timeframes[0]:
             test_df = df[df.index >= t1]
             bh[sym] = test_df.close.iloc[-1] / test_df.close.iloc[0] - 1
-    print(f"  referans TEST donemi buy&hold: BTC {bh['BTCUSDT']:+.1%}, ETH {bh['ETHUSDT']:+.1%}")
+    print("  referans TEST donemi buy&hold: " +
+          ", ".join(f"{s.replace('USDT','')} {bh[s]:+.1%}" for s in symbols))
+
+    # Coin basina secim: en yuksek train Sharpe + min 12 train islemi olan varyant.
+    # Bu, paper_trader'a hangi konfigi ekleyecegimizin kararidir.
+    print()
+    print("=" * 100)
+    print("COIN BASINA SECIM (train Sharpe + min 12 train islemi) ve out-of-sample TEST:")
+    print("=" * 100)
+    sel_cols = ["symbol", "tf", "strategy", "params", "train_sharpe", "train_n",
+                "test_ret", "test_sharpe", "test_dd", "test_n"]
+    picks = []
+    for sym in symbols:
+        elig = res[(res.symbol == sym) & (res.train_n >= 12)]
+        pool = elig if len(elig) else res[res.symbol == sym]
+        picks.append(pool.sort_values("train_sharpe", ascending=False).iloc[0])
+    picks_df = pd.DataFrame(picks)
+    print(picks_df[sel_cols].to_string(index=False, formatters={
+        "train_sharpe": "{:.2f}".format, "test_sharpe": "{:.2f}".format,
+        "test_ret": "{:+.1%}".format, "test_dd": "{:.1%}".format,
+    }))
+    n_ok = (picks_df.test_ret > 0).sum()
+    print(f"\n  Secilenlerden TEST'te karda olan: {n_ok}/{len(picks_df)} "
+          f"(sadece bunlar paper'a aday)")
 
     res.to_csv("results/research_grid.csv", index=False)
     print("\nTum grid: results/research_grid.csv")

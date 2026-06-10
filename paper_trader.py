@@ -28,6 +28,10 @@ INSTRUMENTS = [
      "params": {"fast": 20, "slow": 100, "allow_short": True}},
     {"symbol": "ETHUSDT", "tf": "4h", "strategy": "momentum_breakout",
      "params": {"entry_n": 24, "exit_n": 12, "allow_short": False}},
+    # 2026-06-11 6-coin taramasiyla eklendi: out-of-sample test yili +%2.9
+    # (SOL buy&hold ayni donemde -%61.5 iken), Sharpe 0.38, maks DD -%5.8.
+    {"symbol": "SOLUSDT", "tf": "4h", "strategy": "momentum_breakout",
+     "params": {"entry_n": 48, "exit_n": 24, "allow_short": False}},
 ]
 COMMISSION = 0.001
 SLIPPAGE = 0.0003

@@ -81,6 +81,46 @@ def fetch_binance(symbol: str, interval: str, days: int, use_cache: bool = True)
     return df
 
 
+def fetch_funding(symbol: str, days: int, use_cache: bool = True) -> pd.Series:
+    """Binance USDT-M perp funding rate gecmisi (8 saatte bir: 00/08/16 UTC).
+
+    Index: funding'in gerceklestigi zaman (UTC), deger: o periyodun orani
+    (orn. 0.0001 = %0.01). Public endpoint, API anahtari gerekmez.
+    """
+    cache_file = CACHE_DIR / f"funding_{symbol}_{days}d.csv"
+    if use_cache and cache_file.exists() and time.time() - cache_file.stat().st_mtime < 6 * 3600:
+        df = _read_cache(cache_file)
+        return df["fundingRate"]
+
+    end_ms = int(time.time() * 1000)
+    start_ms = end_ms - days * 24 * 3600 * 1000
+    rows = []
+    cursor = start_ms
+    while cursor < end_ms:
+        resp = requests.get(
+            "https://fapi.binance.com/fapi/v1/fundingRate",
+            params={"symbol": symbol, "startTime": cursor, "limit": 1000},
+            timeout=30,
+        )
+        resp.raise_for_status()
+        batch = resp.json()
+        if not batch:
+            break
+        rows.extend(batch)
+        cursor = batch[-1]["fundingTime"] + 1
+        time.sleep(0.15)
+
+    df = pd.DataFrame(rows)[["fundingTime", "fundingRate"]]
+    df["fundingRate"] = df["fundingRate"].astype(float)
+    df["fundingTime"] = pd.to_datetime(df["fundingTime"], unit="ms", utc=True)
+    # funding zamanlari tam 00/08/16'da olmali; ms sapmalarini yuvarla
+    df["fundingTime"] = df["fundingTime"].dt.round("1h")
+    df = df.set_index("fundingTime").sort_index()
+    df = df[~df.index.duplicated(keep="first")]
+    df.to_csv(cache_file)
+    return df["fundingRate"]
+
+
 def fetch_stock(symbol: str, interval: str = "15m", period: str = "60d", use_cache: bool = True) -> pd.DataFrame:
     """yfinance'tan hisse/ETF verisi. 15m veri en fazla son ~60 gun ile sinirli."""
     cache_file = CACHE_DIR / f"yf_{symbol}_{interval}_{period}.csv"

@@ -87,7 +87,35 @@ def trend_following(df: pd.DataFrame, fast=50, slow=200, atr_n=14, stop_mult=3.0
     return _finalize(df, entry, exit_long, exit_short, atr_n, stop_mult, trail_mult)
 
 
+def funding_extreme(df: pd.DataFrame, z_n=90, entry_z=2.0, exit_z=0.5,
+                    atr_n=14, stop_mult=2.5, allow_short=True) -> pd.DataFrame:
+    """Kontra funding stratejisi (8s barlar + 'funding' kolonu gerektirir).
+
+    Mantik: funding orani kalabaligin yonunu gosterir. Tarihsel ortalamadan
+    asiri sapma (rolling z-skor) crowded trade demektir; ters yonde gireriz.
+      z <= -entry_z -> long  (shortlar funding oduyor, asiri karamsarlik)
+      z >= +entry_z -> short (longlar funding oduyor, asiri iyimserlik;
+                              short ayrica funding'i tahsil eder = carry)
+    Cikis: z'nin |exit_z| altina donmesi (normallesme) ya da ATR stop.
+    z_n: z-skor penceresi, 8s bar cinsinden (90 bar = 30 gun)."""
+    f = df["funding"]
+    mu = f.rolling(z_n).mean()
+    sd = f.rolling(z_n).std()
+    z = (f - mu) / sd
+
+    entry = pd.Series(0, index=df.index)
+    entry[z <= -entry_z] = 1
+    if allow_short:
+        entry[z >= entry_z] = -1
+
+    exit_long = z >= -exit_z
+    exit_short = z <= exit_z
+    out = _finalize(df, entry, exit_long, exit_short, atr_n, stop_mult)
+    return out.dropna(subset=["funding"])
+
+
 REGISTRY = {
+    "funding_extreme": funding_extreme,
     "mean_reversion": mean_reversion,
     "momentum_breakout": momentum_breakout,
     "trend_following": trend_following,

@@ -12,7 +12,7 @@ class RiskConfig:
     daily_loss_limit: float = 0.03    # gun ici %3 kayipta tum pozisyonlar kapanir, gun biter
     max_open_positions: int = 4
     # ayni yondeki "risk-on" pozisyon sayisi siniri (korelasyon filtresi)
-    corr_group: tuple = ("SPY", "QQQ", "BTCUSDT", "ETHUSDT")
+    corr_group: tuple = ("SPY", "QQQ", "BTCUSDT", "ETHUSDT", "SOLUSDT")
     max_corr_same_side: int = 2
 
 
