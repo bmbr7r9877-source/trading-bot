@@ -26,8 +26,11 @@ from botlib.risk import RiskConfig, RiskManager
 INSTRUMENTS = [
     {"symbol": "BTCUSDT", "tf": "8h", "strategy": "trend_following",
      "params": {"fast": 20, "slow": 100, "allow_short": True}},
+    # 2026-06-11 stability.py analiziyle 24/12 long-only'den gecildi: eski konfig
+    # fold'dan fold'a bozuluyordu (son ceyrek -%6.1). 96/48 short'lu hem 4 fold'un
+    # 3'unde pozitif (en kotusu -%0.5) hem yillik test'te +%16.9 / Sharpe 1.28.
     {"symbol": "ETHUSDT", "tf": "4h", "strategy": "momentum_breakout",
-     "params": {"entry_n": 24, "exit_n": 12, "allow_short": False}},
+     "params": {"entry_n": 96, "exit_n": 48, "allow_short": True}},
     # 2026-06-11 6-coin taramasiyla eklendi: out-of-sample test yili +%2.9
     # (SOL buy&hold ayni donemde -%61.5 iken), Sharpe 0.38, maks DD -%5.8.
     {"symbol": "SOLUSDT", "tf": "4h", "strategy": "momentum_breakout",
