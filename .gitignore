@@ -1,0 +1,11 @@
+.venv/
+__pycache__/
+*.pyc
+data_cache/
+results/
+paper/log.txt
+paper/*.out
+.DS_Store
+xcuserdata/
+DerivedData/
+ios/build/
