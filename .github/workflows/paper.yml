@@ -23,11 +23,15 @@ jobs:
           python-version: "3.12"
       - run: pip install --quiet pandas numpy requests
       - run: python paper_trader.py
+      - name: Gunluk rapor + bildirim
+        env:
+          NTFY_TOPIC: ${{ secrets.NTFY_TOPIC }}
+        run: python report.py
       - name: Durumu commitle
         run: |
           git config user.name "trading-bot"
           git config user.email "trading-bot@users.noreply.github.com"
-          git add paper/state.json
+          git add paper/state.json paper/report.txt
           git diff --cached --quiet || git commit -m "paper: $(date -u '+%Y-%m-%d %H:%M') UTC dongusu"
           git pull --rebase origin main
           git push
