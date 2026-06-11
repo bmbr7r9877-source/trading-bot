@@ -124,9 +124,11 @@ def main():
     REPORT_FILE.write_text(title + "\n\n" + body + "\n")
     print(body)
 
-    # elle tetiklenen koşumlar (GitHub'da "Run workflow" ya da --force) her zaman
-    # bildirim atar — test ve anlik kontrol icin. Otomatik koşumlar pencereye uyar.
-    force = "--force" in sys.argv or os.environ.get("GITHUB_EVENT_NAME") == "workflow_dispatch"
+    # Bildirim yalnizca sabah/aksam penceresinde (04 & 16 UTC = 07 & 19 TR) atilir.
+    # Tetikleyici fark etmez (GitHub schedule da, cron-job.org dispatch da ayni
+    # kurala uyar) — boylece bot 4 saatte bir KOSAR ama gunde 2 kez BILDIRIR.
+    # --force sadece yerelde elle test icin pencereyi atlar.
+    force = "--force" in sys.argv
     in_window = datetime.now(timezone.utc).hour in NOTIFY_HOURS
     if force or in_window:
         if send_ntfy(title, body):
