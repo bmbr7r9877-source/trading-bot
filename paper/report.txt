@@ -1,10 +1,10 @@
-🔴 Bot 9,438$ (-5.6%)  gun -0.2%
+🔴 Bot 9,436$ (-5.6%)  gun -0.2%
 
-📊 PAPER TRADING — 2026-08-05 06:39 UTC
-Bakiye: 9,437.53$   (baslangic 10.000$, toplam -5.6%)
-Son 24s: -0.20%   son 7g: -0.48%
+📊 PAPER TRADING — 2026-08-05 08:01 UTC
+Bakiye: 9,435.67$   (baslangic 10.000$, toplam -5.6%)
+Son 24s: -0.22%   son 7g: -0.50%
 
 Acik pozisyonlar:
-  BTCUSDT SHORT  giris 62,697.76 → 64,106.56  (-45.54$)
+  BTCUSDT SHORT  giris 62,697.76 → 64,163.99  (-47.40$)
 
 Son 24s'te kapanan islem yok.
