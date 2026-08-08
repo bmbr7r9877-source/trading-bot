@@ -10,6 +10,15 @@
       "trail_mult": 3.0,
       "entry_time": "2026-08-07T16:01:04.599966+00:00",
       "strategy": "trend_following"
+    },
+    "SOLUSDT": {
+      "side": 1,
+      "qty": 37.3072859435452,
+      "entry_price": 75.62267999999999,
+      "stop_price": 73.92223492334983,
+      "trail_mult": 0.0,
+      "entry_time": "2026-08-08T12:00:59.751434+00:00",
+      "strategy": "momentum_breakout"
     }
   },
   "trades": [
@@ -5905,12 +5914,21 @@
         "ETHUSDT": 1915.11,
         "SOLUSDT": 74.82
       }
+    },
+    {
+      "ts": "2026-08-08T12:00:59.751582+00:00",
+      "equity": 9400.59,
+      "prices": {
+        "BTCUSDT": 64960.0,
+        "ETHUSDT": 1920.99,
+        "SOLUSDT": 75.6
+      }
     }
   ],
   "last_bar": {
     "BTCUSDT": "2026-08-08T00:00:00+00:00",
-    "ETHUSDT": "2026-08-08T04:00:00+00:00",
-    "SOLUSDT": "2026-08-08T04:00:00+00:00"
+    "ETHUSDT": "2026-08-08T08:00:00+00:00",
+    "SOLUSDT": "2026-08-08T08:00:00+00:00"
   },
   "day": "2026-08-08",
   "day_start_equity": 9399.972784084255,
