@@ -1,8 +1,8 @@
 🟢 Bot 9,416$ (-5.8%)  gun +0.2%
 
-📊 PAPER TRADING — 2026-08-09 00:01 UTC
+📊 PAPER TRADING — 2026-08-09 02:25 UTC
 Bakiye: 9,415.99$   (baslangic 10.000$, toplam -5.8%)
-Son 24s: +0.17%   son 7g: -0.60%
+Son 24s: +0.17%   son 7g: -0.66%
 
 Acik pozisyonlar:
   BTCUSDT LONG  giris 64,932.19 → 64,962.60  (+1.21$)
