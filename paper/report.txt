@@ -1,11 +1,11 @@
-🟢 Bot 9,335$ (-6.7%)  gun +0.1%
+🟢 Bot 9,336$ (-6.6%)  gun +0.1%
 
-📊 PAPER TRADING — 2026-08-12 17:09 UTC
-Bakiye: 9,334.80$   (baslangic 10.000$, toplam -6.7%)
-Son 24s: +0.14%   son 7g: -0.99%
+📊 PAPER TRADING — 2026-08-12 20:00 UTC
+Bakiye: 9,335.55$   (baslangic 10.000$, toplam -6.6%)
+Son 24s: +0.15%   son 7g: -0.99%
 
 Acik pozisyonlar:
-  SOLUSDT LONG  giris 75.62 → 75.75  (+4.75$)
+  SOLUSDT LONG  giris 75.62 → 75.77  (+5.50$)
   BTCUSDT SHORT  giris 63,422.44 → 63,441.47  (-0.84$)
 
 Son 24s kapanan 1 islem:
