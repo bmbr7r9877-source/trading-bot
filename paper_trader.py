@@ -40,23 +40,42 @@ COMMISSION = 0.001
 SLIPPAGE = 0.0003
 INITIAL_EQUITY = 10_000.0
 
+# Paralel sanal hesaplar. Ayni sinyaller, farkli risk carpani.
+# 1x = kurulustan beri donen asil hesap (dosya adi degismedi: iOS uygulamasi
+# ve raw.githubusercontent linkleri paper/state.json'a bagli).
+# 2x = 2026-08-20'de eklendi; 6 yillik backtestte tatli nokta 2 kat cikti
+# (CAGR +%38,1, maxDD -%26,2) ama bu SADECE backtest — gercek zamanli
+# dogrulamasi yok, hesap bunun icin acildi.
+ACCOUNTS = [
+    {"name": "1x", "leverage": 1.0, "state": "state.json",    "report": "report.txt"},
+    {"name": "2x", "leverage": 2.0, "state": "state_2x.json", "report": "report_2x.txt"},
+]
+
 # paper/ git'te izlenir: GitHub Actions her dongude state.json'u commit'ler,
 # telefon uygulamasi raw.githubusercontent.com'dan okur
 PAPER_DIR = Path(__file__).resolve().parent / "paper"
-STATE_FILE = PAPER_DIR / "state.json"
 LOG_FILE = PAPER_DIR / "log.txt"
+
+# hangi hesabin dongusundeyiz — log ve state yolu bunu izler
+_ACCOUNT = ACCOUNTS[0]
+
+
+def state_path(account: dict) -> Path:
+    return PAPER_DIR / account["state"]
 
 
 def log(msg: str):
-    line = f"[{datetime.now(timezone.utc).strftime('%Y-%m-%d %H:%M UTC')}] {msg}"
+    line = (f"[{datetime.now(timezone.utc).strftime('%Y-%m-%d %H:%M UTC')}] "
+            f"({_ACCOUNT['name']}) {msg}")
     print(line)
     with open(LOG_FILE, "a") as f:
         f.write(line + "\n")
 
 
 def load_state() -> dict:
-    if STATE_FILE.exists():
-        return json.loads(STATE_FILE.read_text())
+    sf = state_path(_ACCOUNT)
+    if sf.exists():
+        return json.loads(sf.read_text())
     return {
         "started_at": datetime.now(timezone.utc).isoformat(),
         "cash": INITIAL_EQUITY,
@@ -72,7 +91,7 @@ def load_state() -> dict:
 
 def save_state(state: dict):
     PAPER_DIR.mkdir(parents=True, exist_ok=True)
-    STATE_FILE.write_text(json.dumps(state, indent=2))
+    state_path(_ACCOUNT).write_text(json.dumps(state, indent=2))
 
 
 def mark_equity(state: dict, prices: dict) -> float:
@@ -199,21 +218,35 @@ def seconds_to_next_4h() -> float:
 def main():
     PAPER_DIR.mkdir(parents=True, exist_ok=True)
     if "--reset" in sys.argv:
-        if STATE_FILE.exists():
-            STATE_FILE.unlink()
-        log("Sanal hesap sifirlandi (10.000$)")
+        for acc in ACCOUNTS:
+            sf = state_path(acc)
+            if sf.exists():
+                sf.unlink()
+        log("Sanal hesaplar sifirlandi (10.000$)")
         return
-    risk = RiskManager(RiskConfig())
     if "--loop" in sys.argv:
         log("Loop modu basladi: her 4 saatlik bar kapanisinda dongu")
         while True:
-            try:
-                cycle(risk)
-            except Exception as e:
-                log(f"HATA dongu: {e}")
+            run_all_accounts()
             time.sleep(seconds_to_next_4h())
     else:
-        cycle(risk)
+        run_all_accounts()
+
+
+def run_all_accounts():
+    """Her sanal hesap icin bir dongu. Ayni sinyaller, farkli risk carpani."""
+    global _ACCOUNT
+    for acc in ACCOUNTS:
+        _ACCOUNT = acc
+        cfg = RiskConfig(
+            risk_per_trade=0.01 * acc["leverage"],
+            max_notional_pct=0.30 * acc["leverage"],
+        )
+        try:
+            cycle(RiskManager(cfg))
+        except Exception as e:
+            log(f"HATA dongu: {e}")
+    _ACCOUNT = ACCOUNTS[0]
 
 
 if __name__ == "__main__":

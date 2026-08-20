@@ -25,9 +25,14 @@ from pathlib import Path
 import requests
 
 PAPER_DIR = Path(__file__).resolve().parent / "paper"
-STATE_FILE = PAPER_DIR / "state.json"
 REPORT_FILE = PAPER_DIR / "report.txt"
 INITIAL_EQUITY = 10_000.0
+
+# paper_trader.ACCOUNTS ile ayni sira; her hesabin kendi state/report dosyasi
+ACCOUNTS = [
+    {"name": "1x", "state": "state.json",    "report": "report.txt"},
+    {"name": "2x", "state": "state_2x.json", "report": "report_2x.txt"},
+]
 
 # push atilacak UTC saatleri (workflow :10'da kostugu icin 4 ve 16 = TR 07 ve 19)
 NOTIFY_HOURS = {4, 16}
@@ -114,15 +119,24 @@ def send_ntfy(title: str, body: str) -> bool:
 
 
 def main():
-    if not STATE_FILE.exists():
-        print("state.json yok, rapor uretilemedi.")
-        return
-    state = json.loads(STATE_FILE.read_text())
-    title, body = build_report(state)
-
     PAPER_DIR.mkdir(parents=True, exist_ok=True)
-    REPORT_FILE.write_text(title + "\n\n" + body + "\n")
-    print(body)
+    titles, bodies = [], []
+    for acc in ACCOUNTS:
+        sf = PAPER_DIR / acc["state"]
+        if not sf.exists():
+            print(f"{acc['state']} yok, {acc['name']} raporu atlandi.")
+            continue
+        state = json.loads(sf.read_text())
+        title, body = build_report(state)
+        (PAPER_DIR / acc["report"]).write_text(title + "\n\n" + body + "\n")
+        titles.append(f"{acc['name']}: {title}")
+        bodies.append(f"----- HESAP {acc['name']} -----\n{body}")
+        print(f"\n===== {acc['name']} =====\n{body}")
+    if not bodies:
+        print("hic state dosyasi yok, rapor uretilemedi.")
+        return
+    title = "  |  ".join(titles)
+    body = "\n\n".join(bodies)
 
     # Bildirim yalnizca sabah/aksam penceresinde (04 & 16 UTC = 07 & 19 TR) atilir.
     # Tetikleyici fark etmez (GitHub schedule da, cron-job.org dispatch da ayni
