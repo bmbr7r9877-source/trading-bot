@@ -1,8 +1,8 @@
-🟢 Bot 10,097$ (+1.0%)  gun +1.0%
+🔴 Bot 10,097$ (+1.0%)  gun -0.4%
 
-📊 PAPER TRADING — 2026-08-23 00:00 UTC
+📊 PAPER TRADING — 2026-08-23 01:57 UTC
 Bakiye: 10,097.29$   (baslangic 10.000$, toplam +1.0%)
-Son 24s: +0.97%   son 7g: +8.07%
+Son 24s: -0.38%   son 7g: +8.16%
 
 Acik pozisyonlar:
   SOLUSDT LONG  giris 77.57 → 93.82  (+580.18$)
