@@ -1,8 +1,8 @@
 🟢 Bot 10,737$ (+7.4%)  gun +0.0%
 
-📊 PAPER TRADING — 2026-09-01 19:22 UTC
+📊 PAPER TRADING — 2026-09-01 20:01 UTC
 Bakiye: 10,736.80$   (baslangic 10.000$, toplam +7.4%)
-Son 24s: +0.00%   son 7g: +3.11%
+Son 24s: +0.00%   son 7g: +3.40%
 
 Acik pozisyon yok (nakit bekliyor).
 
