@@ -1,17 +1,7 @@
 {
   "started_at": "2026-06-10T09:43:50.011232+00:00",
-  "cash": 10027.525236143865,
-  "positions": {
-    "BTCUSDT": {
-      "side": 1,
-      "qty": 0.0336335937345253,
-      "entry_price": 68574.5662,
-      "stop_price": 77149.08801951485,
-      "trail_mult": 3.0,
-      "entry_time": "2026-08-19T16:01:05.025170+00:00",
-      "strategy": "trend_following"
-    }
-  },
+  "cash": 10310.238347421015,
+  "positions": {},
   "trades": [
     {
       "symbol": "ETHUSDT",
@@ -168,6 +158,18 @@
       "exit_price": 100.049976,
       "pnl": 796.32,
       "reason": "signal"
+    },
+    {
+      "symbol": "BTCUSDT",
+      "strategy": "trend_following",
+      "side": 1,
+      "qty": 0.0336335937345253,
+      "entry_time": "2026-08-19T16:01:05.025170+00:00",
+      "entry_price": 68574.5662,
+      "exit_time": "2026-09-10T16:01:19.948422+00:00",
+      "exit_price": 77125.943293109,
+      "pnl": 282.71,
+      "reason": "stop"
     }
   ],
   "history": [
@@ -9229,12 +9231,21 @@
         "ETHUSDT": 2462.21,
         "SOLUSDT": 101.01
       }
+    },
+    {
+      "ts": "2026-09-10T16:01:22.846856+00:00",
+      "equity": 10310.24,
+      "prices": {
+        "BTCUSDT": 77250.0,
+        "ETHUSDT": 2441.54,
+        "SOLUSDT": 99.74
+      }
     }
   ],
   "last_bar": {
-    "BTCUSDT": "2026-09-10T00:00:00+00:00",
-    "ETHUSDT": "2026-09-10T08:00:00+00:00",
-    "SOLUSDT": "2026-09-10T08:00:00+00:00"
+    "BTCUSDT": "2026-09-10T08:00:00+00:00",
+    "ETHUSDT": "2026-09-10T12:00:00+00:00",
+    "SOLUSDT": "2026-09-10T12:00:00+00:00"
   },
   "day": "2026-09-10",
   "day_start_equity": 10354.8427894728,
