@@ -1,10 +1,10 @@
-🟢 Bot 10,444$ (+4.4%)  gun +0.3%
+🟢 Bot 10,456$ (+4.6%)  gun +0.5%
 
-📊 PAPER TRADING — 2026-10-04 23:03 UTC
-Bakiye: 10,444.28$   (baslangic 10.000$, toplam +4.4%)
-Son 24s: +0.31%   son 7g: -0.44%
+📊 PAPER TRADING — 2026-10-05 00:01 UTC
+Bakiye: 10,456.35$   (baslangic 10.000$, toplam +4.6%)
+Son 24s: +0.46%   son 7g: -0.09%
 
 Acik pozisyonlar:
-  SOLUSDT LONG  giris 111.18 → 121.10  (+239.32$)
+  SOLUSDT LONG  giris 111.18 → 121.60  (+251.38$)
 
 Son 24s'te kapanan islem yok.
