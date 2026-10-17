@@ -1,10 +1,10 @@
-🟢 Bot 10,903$ (+9.0%)  gun +0.1%
+🟢 Bot 10,905$ (+9.0%)  gun +0.5%
 
-📊 PAPER TRADING — 2026-10-17 08:01 UTC
-Bakiye: 10,902.74$   (baslangic 10.000$, toplam +9.0%)
-Son 24s: +0.12%   son 7g: +1.38%
+📊 PAPER TRADING — 2026-10-17 12:01 UTC
+Bakiye: 10,904.80$   (baslangic 10.000$, toplam +9.0%)
+Son 24s: +0.47%   son 7g: +1.44%
 
 Acik pozisyonlar:
-  ETHUSDT SHORT  giris 2,578.17 → 2,435.04  (+351.35$)
+  ETHUSDT SHORT  giris 2,578.17 → 2,434.20  (+353.41$)
 
 Son 24s'te kapanan islem yok.
