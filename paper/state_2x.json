@@ -1,26 +1,7 @@
 {
   "started_at": "2026-08-20T20:01:04.530119+00:00",
-  "cash": 10551.392722853763,
-  "positions": {
-    "ETHUSDT": {
-      "side": -1,
-      "qty": 2.454820830927535,
-      "entry_price": 2578.166318,
-      "stop_price": 2640.3651751996126,
-      "trail_mult": 0.0,
-      "entry_time": "2026-10-07T12:01:17.441571+00:00",
-      "strategy": "momentum_breakout"
-    },
-    "BTCUSDT": {
-      "side": -1,
-      "qty": 0.061111721249828395,
-      "entry_price": 79779.808875,
-      "stop_price": 80128.64768755465,
-      "trail_mult": 3.0,
-      "entry_time": "2026-10-24T16:01:18.806147+00:00",
-      "strategy": "trend_following"
-    }
-  },
+  "cash": 10868.083584831684,
+  "positions": {},
   "trades": [
     {
       "symbol": "ETHUSDT",
@@ -80,6 +61,30 @@
       "exit_time": "2026-10-07T04:01:18.353128+00:00",
       "exit_price": 118.22452200000001,
       "pnl": -126.88,
+      "reason": "signal"
+    },
+    {
+      "symbol": "BTCUSDT",
+      "strategy": "trend_following",
+      "side": -1,
+      "qty": 0.061111721249828395,
+      "entry_time": "2026-10-24T16:01:18.806147+00:00",
+      "entry_price": 79779.808875,
+      "exit_time": "2026-11-04T16:01:22.321446+00:00",
+      "exit_price": 80320.09880299999,
+      "pnl": -42.8,
+      "reason": "stop"
+    },
+    {
+      "symbol": "ETHUSDT",
+      "strategy": "momentum_breakout",
+      "side": -1,
+      "qty": 2.454820830927535,
+      "entry_time": "2026-10-07T12:01:17.441571+00:00",
+      "entry_price": 2578.166318,
+      "exit_time": "2026-11-04T16:01:23.091935+00:00",
+      "exit_price": 2426.717797,
+      "pnl": 359.49,
       "reason": "signal"
     }
   ],
@@ -6770,14 +6775,23 @@
         "ETHUSDT": 2327.96,
         "SOLUSDT": 93.59
       }
+    },
+    {
+      "ts": "2026-11-04T16:01:23.864420+00:00",
+      "equity": 10868.08,
+      "prices": {
+        "BTCUSDT": 80296.01,
+        "ETHUSDT": 2425.99,
+        "SOLUSDT": 96.7
+      }
     }
   ],
   "last_bar": {
-    "BTCUSDT": "2026-11-04T00:00:00+00:00",
-    "ETHUSDT": "2026-11-04T08:00:00+00:00",
-    "SOLUSDT": "2026-11-04T08:00:00+00:00"
+    "BTCUSDT": "2026-11-04T08:00:00+00:00",
+    "ETHUSDT": "2026-11-04T12:00:00+00:00",
+    "SOLUSDT": "2026-11-04T12:00:00+00:00"
   },
   "day": "2026-11-04",
   "day_start_equity": 11438.31906359723,
-  "day_blocked": false
+  "day_blocked": true
 }
