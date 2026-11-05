@@ -1,11 +1,9 @@
-🔴 Bot 10,525$ (+5.2%)  gun -1.8%
+🟢 Bot 10,525$ (+5.2%)  gun +0.0%
 
-📊 PAPER TRADING — 2026-11-05 12:13 UTC
+📊 PAPER TRADING — 2026-11-05 16:01 UTC
 Bakiye: 10,524.97$   (baslangic 10.000$, toplam +5.2%)
-Son 24s: -1.82%   son 7g: -1.38%
+Son 24s: +0.00%   son 7g: -0.35%
 
 Acik pozisyon yok (nakit bekliyor).
 
-Son 24s kapanan 2 islem:
-  BTCUSDT short  -21.03$  (stop)
-  ETHUSDT short  +176.65$  (signal)
+Son 24s'te kapanan islem yok.
