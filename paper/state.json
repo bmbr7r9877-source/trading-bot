@@ -1,7 +1,17 @@
 {
   "started_at": "2026-06-10T09:43:50.011232+00:00",
   "cash": 10524.966626287198,
-  "positions": {},
+  "positions": {
+    "ETHUSDT": {
+      "side": -1,
+      "qty": 1.4841595084683892,
+      "entry_price": 2126.821762,
+      "stop_price": 2197.544654883384,
+      "trail_mult": 0.0,
+      "entry_time": "2026-11-09T00:01:19.583675+00:00",
+      "strategy": "momentum_breakout"
+    }
+  },
   "trades": [
     {
       "symbol": "ETHUSDT",
@@ -14364,14 +14374,23 @@
         "ETHUSDT": 2232.42,
         "SOLUSDT": 89.6
       }
+    },
+    {
+      "ts": "2026-11-09T00:01:20.512727+00:00",
+      "equity": 10524.02,
+      "prices": {
+        "BTCUSDT": 74851.44,
+        "ETHUSDT": 2127.46,
+        "SOLUSDT": 86.54
+      }
     }
   ],
   "last_bar": {
-    "BTCUSDT": "2026-11-08T08:00:00+00:00",
-    "ETHUSDT": "2026-11-08T16:00:00+00:00",
-    "SOLUSDT": "2026-11-08T16:00:00+00:00"
+    "BTCUSDT": "2026-11-08T16:00:00+00:00",
+    "ETHUSDT": "2026-11-08T20:00:00+00:00",
+    "SOLUSDT": "2026-11-08T20:00:00+00:00"
   },
-  "day": "2026-11-08",
-  "day_start_equity": 10524.966626287198,
+  "day": "2026-11-09",
+  "day_start_equity": 10524.019379290832,
   "day_blocked": false
 }
